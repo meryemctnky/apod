@@ -1,25 +1,65 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import axios from 'axios';
+import Header from './components/Header';
+import Home from './components/Home';
+import Loading from './components/Loading';
+import NotFound from './components/NotFound';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const[date, setDate] = useState(null);
+  const[title, setTitle] = useState("");
+  const[copyright, setCopyright] = useState("");
+  const[explanation, setExplanantion] = useState("");
+  const[img, setImg]= useState("")
+
+  const url="https://api.nasa.gov/planetary/apod?api_key=x82beFFDnNP9ib1BvIaD7FwbuLYvdZ5RQaZzpIZi";
+
+  const getResult = async ()=> {
+    setLoading(true);
+    try {
+    const res = await axios.get(url);
+    setDate(res.data.date);
+    setTitle(res.data.title);
+    setCopyright(res.data.copyright);
+    setExplanantion(res.data.explanation);
+    setImg(res.data.url);
+    setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  }
+  
+  useEffect(() => {
+    getResult();
+  }, [])
+
+  const data = {date, title, copyright, explanation, img}
+
+  if (loading) {
+    return (
+      <main>
+        <Loading />
+      </main>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <NotFound />
+      );
+    }
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className='container bg-transparent'>
+      <Header date={date}/>
+      <Home data={data} />
+    </main>
   );
 }
 
 export default App;
+
