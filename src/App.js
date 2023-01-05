@@ -6,6 +6,8 @@ import Home from './components/Home';
 import Loading from './components/Loading';
 import NotFound from './components/NotFound';
 
+const url="https://api.nasa.gov/planetary/apod?api_key=x82beFFDnNP9ib1BvIaD7FwbuLYvdZ5RQaZzpIZi";
+
 function App() {
   const [loading, setLoading] = useState(true);
   const[date, setDate] = useState(null);
@@ -14,7 +16,6 @@ function App() {
   const[explanation, setExplanantion] = useState("");
   const[img, setImg]= useState("")
 
-  const url="https://api.nasa.gov/planetary/apod?api_key=x82beFFDnNP9ib1BvIaD7FwbuLYvdZ5RQaZzpIZi";
 
   const getResult = async ()=> {
     setLoading(true);
@@ -62,4 +63,3 @@ function App() {
 }
 
 export default App;
-

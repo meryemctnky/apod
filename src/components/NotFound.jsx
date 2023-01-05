@@ -1,21 +1,24 @@
-import React, { useState } from "react";
-import Alert from "react-bootstrap/Alert";
+import React from "react";
 
 const NotFound = () => {
-  const [show, setShow] = useState(true);
 
-  if (show) {
     return (
-      <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-        <Alert.Heading>Oops! Something went wrong.</Alert.Heading>
+      <div
+        className="alert alert-danger alert-dismissible fade show"
+        role="alert"
+      >
+        <h4 className="alert-heading">Oops! Something went wrong.</h4>
         <p>We couldn't find anything to show.</p>
-      </Alert>
+        <button
+          type="button"
+          className="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     );
-  }
 };
 
 export default NotFound;
-
-
-
- 
